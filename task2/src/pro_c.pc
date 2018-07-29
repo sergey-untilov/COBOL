@@ -50,7 +50,7 @@ int main (int argc, char** argv)
     FROM dual
     END-EXEC;
 
-    printf("Result: %s\n", data);
+    printf("%s\n", data);
 
     return 0;
 }
