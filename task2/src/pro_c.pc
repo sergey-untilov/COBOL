@@ -1,0 +1,76 @@
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <sqlcpr.h>
+#include <sqlca.h>
+
+
+#define MAX_DATA_SIZE 10+1
+
+#define UNAME_LEN      20
+#define PWD_LEN        40
+
+/*
+ * Use the precompiler typedef'ing capability to create
+ * null-terminated strings for the authentication host
+ * variables. (This isn't really necessary--plain char *'s
+ * would work as well. This is just for illustration.)
+ */
+typedef char asciiz[PWD_LEN];
+
+EXEC SQL TYPE asciiz IS STRING(PWD_LEN) REFERENCE;
+asciiz     username;
+asciiz     password;
+
+/* Declare function to handle unrecoverable errors. */
+void sql_error();
+
+int main (int argc, char** argv)
+{
+    // Connect to ORACLE
+    // Заменить имя пользователя и пароль
+    /*
+    strcpy(username, "SCOTT");
+    strcpy(password, "TIGER");
+    EXEC SQL WHENEVER SQLERROR DO sql_error("ORACLE error--");
+    EXEC SQL CONNECT :username IDENTIFIED BY :password;
+    printf("\nConnected to ORACLE as user: %s\n", username);
+    */
+
+    VARCHAR inputString[MAX_DATA_SIZE] = {0};
+
+    strncpy(inputString.arr, argc ? argv[0] : "We're here", sizeof inputString);
+    inputString.len = strlen(inputString.arr);
+
+    VARCHAR data[MAX_DATA_SIZE] = {0};
+
+    EXEC SQL
+    select :inputString
+    INTO :data
+    FROM dual
+    END-EXEC;
+
+    printf("Result: %s\n", data);
+
+    return 0;
+}
+
+void sql_error(char *msg)
+{
+    char err_msg[512];
+    int buf_len, msg_len;
+
+    EXEC SQL WHENEVER SQLERROR CONTINUE;
+
+    printf("\n%s\n", msg);
+
+/* Call sqlglm() to get the complete text of the
+ * error message.
+ */
+    buf_len = sizeof (err_msg);
+    sqlglm(err_msg, &buf_len, &msg_len);
+    printf("%.*s\n", msg_len, err_msg);
+
+    EXEC SQL ROLLBACK RELEASE;
+    exit(1);
+}
