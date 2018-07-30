@@ -21,15 +21,6 @@
                 "${file}"
             ],
             "problemMatcher": "$gnucobol-cobc"
-        },
-        {
-            "label": "python test",
-            "type": "shell",
-            "command": "python",
-            "args": [
-                "test_shared.py"
-            ],
-            "problemMatcher": []
         }
     ]
 }
