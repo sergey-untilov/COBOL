@@ -3,7 +3,7 @@
       *
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-           01  args    PIC X(40).
+           01  args    PIC X(50).
       *
        PROCEDURE DIVISION.
            ACCEPT args FROM COMMAND-LINE.
