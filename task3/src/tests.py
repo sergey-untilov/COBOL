@@ -43,7 +43,7 @@ class Tests(unittest.TestCase):
         saved_path = os.getcwd()
         os.chdir('../task2')
         input_string = 'test'
-        result = subprocess.run(['./out/pro_c', input_string], stdout=subprocess.PIPE)
+        result = subprocess.run(['./out/app', input_string], stdout=subprocess.PIPE)
         os.chdir(saved_path)
         output_string = result.stdout.decode("utf-8").strip()
         self.assertTrue(output_string == input_string)
@@ -53,7 +53,7 @@ class Tests(unittest.TestCase):
         saved_path = os.getcwd()
         os.chdir('../task2')
         input_string = 'This is a very very long input string'
-        result = subprocess.run(['./out/pro_c', input_string], stdout=subprocess.PIPE)
+        result = subprocess.run(['./out/app', input_string], stdout=subprocess.PIPE)
         os.chdir(saved_path)
         output_string = result.stdout.decode("utf-8").strip()
         self.assertFalse(output_string == input_string)
