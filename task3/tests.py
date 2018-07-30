@@ -21,17 +21,15 @@ class Tests(unittest.TestCase):
         output_string = result.stdout.decode("utf-8").strip()
         self.assertTrue(output_string == input_string)
 
+    ''' Негативный сценарий. Слишком длинная строка будет обрезана '''
     def test_Task1_VeryLongInputString(self):
         saved_path = os.getcwd()
         os.chdir('../task1')
-        input_string = 'This is a very very long input string'
+        input_string = 'This is a very very long input string, more than 50 chars'
         result = subprocess.run(['./out/app', input_string], stdout=subprocess.PIPE)
         os.chdir(saved_path)
-        self.assertTrue(result.returncode == 0)
-
-    ''' Для Task1 не может быть негативного сценария'''
-    def test_Task1_RefusalCanNotBe(self):
-        self.assertTrue(True)
+        output_string = result.stdout.decode("utf-8").strip()
+        self.assertFalse(output_string == input_string)
 
     def test_Task2_Build(self):
         saved_path = os.getcwd()
@@ -50,7 +48,7 @@ class Tests(unittest.TestCase):
         output_string = result.stdout.decode("utf-8").strip()
         self.assertTrue(output_string == input_string)
 
-    ''' В отличие от Task1 слишком длинная строка в Task2 будет обрезана '''
+    ''' Негативный сценарий. Слишком длинная строка будет обрезана '''
     def test_Task2_VeryLongInputStringWillCutted(self):
         saved_path = os.getcwd()
         os.chdir('../task2')

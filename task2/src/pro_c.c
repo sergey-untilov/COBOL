@@ -242,7 +242,7 @@ struct { unsigned short len; unsigned char arr[11]; } data
 
 
 
-    printf("Result: %s\n", data);
+    printf("%s\n", data);
 
     return 0;
 }
