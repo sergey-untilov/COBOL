@@ -49,7 +49,7 @@ class Tests(unittest.TestCase):
         self.assertTrue(output_string == input_string)
 
     ''' Негативный сценарий. Слишком длинная строка будет обрезана '''
-    def test_Task2_VeryLongInputStringWillCutted(self):
+    def test_Task2_VeryLongInputStringWillCut(self):
         saved_path = os.getcwd()
         os.chdir('../task2')
         input_string = 'This is a very very long input string'
